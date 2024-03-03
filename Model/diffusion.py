@@ -2,7 +2,9 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 from attention import SelfAttention, CrossAttention
-
+### shit going crazy
+#####################
+###
 class TimeEmbedding(nn.Module):
     def __init__(self, n_embd:int):
         super().__init__()
