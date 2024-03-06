@@ -69,4 +69,3 @@ class CrossAttention(nn.Module):
         output = self.out_proj(output)
 
         return output
-    ## bsjhdfgkhg lkdsfgjl jfgljl fjglkjl

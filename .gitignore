@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# pretrained weight
+.ckpt
+
 # Distribution / packaging
 .Python
 build/
