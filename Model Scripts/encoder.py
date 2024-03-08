@@ -48,3 +48,4 @@ class VAE_Encoder(nn.Sequential):
         x *= 0.18215
 
         return x
+

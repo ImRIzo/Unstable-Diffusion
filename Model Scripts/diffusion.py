@@ -174,3 +174,4 @@ class Diffusion(nn.Module):
         output = self.final(output)
 
         return output
+

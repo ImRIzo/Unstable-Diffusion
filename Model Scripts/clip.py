@@ -60,3 +60,4 @@ class CLIP(nn.Module):
         output = self.layernorm(state)
 
         return output
+

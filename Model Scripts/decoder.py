@@ -88,3 +88,4 @@ class VAE_Decoder(nn.Sequential):
         for module in self:
             x = module(x)
         return x
+
