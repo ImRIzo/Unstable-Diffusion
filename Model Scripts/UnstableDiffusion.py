@@ -185,10 +185,10 @@ class Ui_MainWindow(object):
         image_filename = f"image_{formatted_time}.jpg"
 
         if file_path:
-            pixmap = QPixmap("logo.png")  # Load the image
+            #pixmap = QPixmap("logo.png")  # Load the image
             image_path = os.path.join(file_path, image_filename)  # Construct full image path
             print(image_path)
-            pixmap.save(image_path)  # Save the image
+            self.pixmap.save(image_path)  # Save the image
 
 
 def get_unstable_diffusion_directory():
