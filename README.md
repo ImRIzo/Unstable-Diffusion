@@ -22,8 +22,8 @@ Image to Image architecture overview goes brrrrrrrrrrrrrrrrr
 
 ## Installation
 
-Download Setup_Unstable_Diffusion.exe,Setup_Unstable_Diffusion-1.bin,
-Setup_Unstable_Diffusion-2.bin and Setup_Unstable_Diffusion-3.bin from [here](https://iubat-my.sharepoint.com/:f:/g/personal/15303067_iubat_edu/En8i0MJhw6xDkV2Y7eBOA6UBSVdkIJk8GX_LE1ww7NglmA?e=r1o4pD)
+Download **Setup_Unstable_Diffusion.exe**,**Setup_Unstable_Diffusion-1.bin**,
+**Setup_Unstable_Diffusion-2.bin** and **Setup_Unstable_Diffusion-3.bin** from [here](https://tinyurl.com/2fveuu3u)
 <br>
 <br>
 ![InstallationFiles](others/setup1.png)
@@ -40,11 +40,14 @@ Then double click on Setup_Unstable_Diffusion.exe and install it just like a nor
 The installation time may vary depending on your machine.
 
 ## Usage
-![Demo GIF](images/demo.gif)
+![Demo GIF](others/use.gif)
 
 Use this application to edit existing image with text prompt or generate image from scratch
 with text prompts.
-
+<br>
+<br>
+"After generating the image, you can save it by clicking the **Save Image** button. 
+This action will create a folder named **Stable Diffusion** on your desktop and save the image inside that folder."
 ## Contributing
 
 Riz1
