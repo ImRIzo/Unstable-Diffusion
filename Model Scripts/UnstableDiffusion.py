@@ -23,6 +23,8 @@ class Ui_MainWindow(object):
         self.ALLOW_CUDA = False
         self.ALLOW_MPS = False
 
+        self.image_copy = None
+
         if torch.cuda.is_available() and self.ALLOW_CUDA:
             self.DEVICE = "cuda"
         elif (torch.backends.mps.is_built() or torch.backends.mps.is_available()) and self.ALLOW_MPS:
@@ -171,7 +173,7 @@ class Ui_MainWindow(object):
             tokenizer=self.tokenizer,
         )
 
-        image = Image.fromarray(output_image)
+        self.image_copy = image = Image.fromarray(output_image)
         qimage = QtGui.QImage(image.convert('RGBA'))  # Convert PIL image to QImage
         self.pixmap = QPixmap.fromImage(qimage)  # Convert QImage to QPixmap
 
@@ -183,12 +185,25 @@ class Ui_MainWindow(object):
         current_time = datetime.datetime.now()
         formatted_time = current_time.strftime("%Y-%m-%d_%H-%M-%S")
         image_filename = f"image_{formatted_time}.jpg"
+        # image metadata .......
+        metadata = {
+            "Software": "Unstable Diffusion",
+            "Company": "Odd Voot",
+            "Website": "https://imrizo.github.io/"
+        }
+        image_info = self.image_copy.info.copy()
+        image_info.update(metadata)
 
         if file_path:
             #pixmap = QPixmap("logo.png")  # Load the image
             image_path = os.path.join(file_path, image_filename)  # Construct full image path
-            #print(image_path)
-            self.pixmap.save(image_path)  # Save the image
+
+            #self.pixmap.save(image_path)  # Save the image
+
+            # Save the image with metadata
+            self.image_copy.save(image_path, format="JPEG", exif=image_info.get("exif"))
+            # Close the image
+            self.image_copy.close()
 
 
 def get_unstable_diffusion_directory():
