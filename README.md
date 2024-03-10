@@ -26,8 +26,6 @@ Download Setup_Unstable_Diffusion.exe,Setup_Unstable_Diffusion-1.bin,
 Setup_Unstable_Diffusion-2.bin and Setup_Unstable_Diffusion-3.bin from [here](https://iubat-my.sharepoint.com/:f:/g/personal/15303067_iubat_edu/En8i0MJhw6xDkV2Y7eBOA6UBSVdkIJk8GX_LE1ww7NglmA?e=r1o4pD)
 <br>
 <br>
-<br>
-<br>
 ![InstallationFiles](others/setup1.png)
 <br>
 <br>
@@ -35,12 +33,7 @@ Setup_Unstable_Diffusion-2.bin and Setup_Unstable_Diffusion-3.bin from [here](ht
 <br>
 Put those files in the same folder.
 <br>
-<br>
-<br>
-<br>
 ![Setup](others/setup2.png)
-<br>
-<br>
 <br>
 <br>
 Then double click on Setup_Unstable_Diffusion.exe and install it just like a normal windows app.
