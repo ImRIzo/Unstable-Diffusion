@@ -28,10 +28,10 @@ Setup_Unstable_Diffusion-2.bin and Setup_Unstable_Diffusion-3.bin from [here](ht
 <br>
 ![InstallationFiles](others/setup1.png)
 <br>
-<br>
-<br>
-<br>
 Put those files in the same folder.
+<br>
+<br>
+<br>
 <br>
 ![Setup](others/setup2.png)
 <br>
