@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
         self.ALLOW_CUDA = False
         self.ALLOW_MPS = False
 
-        self.image_array_copy = None
+        self.image_array_copy = np.empty((512, 512, 3), dtype=np.uint8)
 
         if torch.cuda.is_available() and self.ALLOW_CUDA:
             self.DEVICE = "cuda"
@@ -158,7 +158,7 @@ class Ui_MainWindow(object):
             self.prompt.setText("madafaka at least write somthing !")
             return None
 
-        output_image = pipeline.generate(
+        self.image_array_copy = output_image = pipeline.generate(
             prompt=prompt,
             uncond_prompt=self.uncond_prompt,
             input_image=self.input_image,
@@ -185,7 +185,7 @@ class Ui_MainWindow(object):
             raise ValueError("Unsupported image format")
 
         # Ensure data type is uint8 for efficient processing by Qt
-        self.image_array_copy = output_image = output_image.astype(np.uint8)
+        output_image = output_image.astype(np.uint8)
         # Convert output_image.data to bytes
         image_bytes = bytes(output_image.data)
         # Create QImage from the NumPy array with correct byte jump # bytesPerLine: Number of bytes per line (in this case, it's width * channels)
@@ -206,8 +206,7 @@ class Ui_MainWindow(object):
             "Website": "https://imrizo.github.io/"
         }
         image = Image.fromarray(self.image_array_copy)
-        image_info = image.info.copy()
-        image_info.update(metadata)
+        image.info.update(metadata)
 
         if file_path:
             #pixmap = QPixmap("logo.png")  # Load the image
@@ -216,7 +215,7 @@ class Ui_MainWindow(object):
             #self.pixmap.save(image_path)  # Save the image
 
             # Save the image with metadata
-            image.save(image_path, format="JPEG", exif=image_info.get("exif"))
+            image.save(image_path, format="JPEG")
             # Close the image
             image.close()
 
