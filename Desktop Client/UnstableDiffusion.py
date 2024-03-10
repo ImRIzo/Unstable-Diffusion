@@ -24,6 +24,8 @@ class Ui_MainWindow(object):
         self.ALLOW_CUDA = False
         self.ALLOW_MPS = False
 
+        self.image_array_copy = None
+
         if torch.cuda.is_available() and self.ALLOW_CUDA:
             self.DEVICE = "cuda"
         elif (torch.backends.mps.is_built() or torch.backends.mps.is_available()) and self.ALLOW_MPS:
@@ -183,7 +185,7 @@ class Ui_MainWindow(object):
             raise ValueError("Unsupported image format")
 
         # Ensure data type is uint8 for efficient processing by Qt
-        output_image = output_image.astype(np.uint8)
+        self.image_array_copy = output_image = output_image.astype(np.uint8)
         # Convert output_image.data to bytes
         image_bytes = bytes(output_image.data)
         # Create QImage from the NumPy array with correct byte jump # bytesPerLine: Number of bytes per line (in this case, it's width * channels)
@@ -197,12 +199,26 @@ class Ui_MainWindow(object):
         current_time = datetime.datetime.now()
         formatted_time = current_time.strftime("%Y-%m-%d_%H-%M-%S")
         image_filename = f"image_{formatted_time}.jpg"
+        # image metadata .......
+        metadata = {
+            "Software": "Unstable Diffusion",
+            "Company": "Odd Voot",
+            "Website": "https://imrizo.github.io/"
+        }
+        image = Image.fromarray(self.image_array_copy)
+        image_info = image.info.copy()
+        image_info.update(metadata)
 
         if file_path:
             #pixmap = QPixmap("logo.png")  # Load the image
             image_path = os.path.join(file_path, image_filename)  # Construct full image path
-            #print(image_path)
-            self.pixmap.save(image_path)  # Save the image
+
+            #self.pixmap.save(image_path)  # Save the image
+
+            # Save the image with metadata
+            image.save(image_path, format="JPEG", exif=image_info.get("exif"))
+            # Close the image
+            image.close()
 
 
 def get_unstable_diffusion_directory():
