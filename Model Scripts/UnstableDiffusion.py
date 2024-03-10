@@ -3,7 +3,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QSplashScreen
 from PyQt5.QtCore import Qt, pyqtSignal, QObject
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QImage
 import os
 import datetime
 
@@ -11,9 +11,10 @@ import datetime
 import model_loader
 import pipeline
 from PIL import Image
-from PIL import ImageQt
+#from PIL import ImageQt
 from transformers import CLIPTokenizer
 import torch
+import numpy as np
 
 
 class Ui_MainWindow(object):
@@ -23,7 +24,7 @@ class Ui_MainWindow(object):
         self.ALLOW_CUDA = False
         self.ALLOW_MPS = False
 
-        self.image_copy = None
+        self.image_array_copy = None
 
         if torch.cuda.is_available() and self.ALLOW_CUDA:
             self.DEVICE = "cuda"
@@ -31,8 +32,8 @@ class Ui_MainWindow(object):
             self.DEVICE = "mps"
         print(f"Using device: {self.DEVICE}")
 
-        self.tokenizer = CLIPTokenizer("../Data/tokenizer_vocab.json", merges_file="../Data/tokenizer_merges.txt")
-        self.model_file = "../Data/v1-5-pruned-emaonly.ckpt"
+        self.tokenizer = CLIPTokenizer("./_internal/Data/tokenizer_vocab.json", merges_file="./_internal/Data/tokenizer_merges.txt")
+        self.model_file = "./_internal/Data/v1-5-pruned-emaonly.ckpt"
         self.models = model_loader.preload_models_from_standard_weights(self.model_file, self.DEVICE)
 
         ## TEXT TO IMAGE
@@ -72,7 +73,7 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         MainWindow.setFont(font)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("./_internal/Data/logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -173,10 +174,23 @@ class Ui_MainWindow(object):
             tokenizer=self.tokenizer,
         )
 
-        self.image_copy = image = Image.fromarray(output_image)
-        qimage = QtGui.QImage(image.convert('RGBA'))  # Convert PIL image to QImage
-        self.pixmap = QPixmap.fromImage(qimage)  # Convert QImage to QPixmap
+        # Convert the NumPy array to a QImage
+        height, width, channels = output_image.shape
+        if channels == 3:
+            qimage_format = QImage.Format_RGB888
+        elif channels == 1:
+            qimage_format = QImage.Format_Grayscale8
+        else:
+            # Handle custom color formats if needed
+            raise ValueError("Unsupported image format")
 
+        # Ensure data type is uint8 for efficient processing by Qt
+        self.image_array_copy = output_image = output_image.astype(np.uint8)
+        # Convert output_image.data to bytes
+        image_bytes = bytes(output_image.data)
+        # Create QImage from the NumPy array with correct byte jump # bytesPerLine: Number of bytes per line (in this case, it's width * channels)
+        qimage = QImage(image_bytes, width, height, width * channels, qimage_format)
+        self.pixmap = QPixmap.fromImage(qimage)  # Convert QImage to QPixmap
         # Set the pixmap to self.photo
         self.photo.setPixmap(self.pixmap)
 
@@ -191,7 +205,8 @@ class Ui_MainWindow(object):
             "Company": "Odd Voot",
             "Website": "https://imrizo.github.io/"
         }
-        image_info = self.image_copy.info.copy()
+        image = Image.fromarray(self.image_array_copy)
+        image_info = image.info.copy()
         image_info.update(metadata)
 
         if file_path:
@@ -201,9 +216,9 @@ class Ui_MainWindow(object):
             #self.pixmap.save(image_path)  # Save the image
 
             # Save the image with metadata
-            self.image_copy.save(image_path, format="JPEG", exif=image_info.get("exif"))
+            image.save(image_path, format="JPEG", exif=image_info.get("exif"))
             # Close the image
-            self.image_copy.close()
+            image.close()
 
 
 def get_unstable_diffusion_directory():
@@ -231,7 +246,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
     # Load the image for the splash screen
-    pixmaps = QPixmap("./logo.png")
+    pixmaps = QPixmap("./_internal/Data/logo.png")
     splash = SplashScreen(pixmaps)
 
     # Show the splash screen
