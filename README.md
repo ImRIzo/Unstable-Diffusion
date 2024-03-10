@@ -54,6 +54,7 @@ This action will create a folder named **Stable Diffusion** on your desktop and 
 <br>
 ![showpieces.png](others/showpieces.png)
 <p align="center">Here are some example outputs</p>
+
 ## Contributing
 
 Riz1
