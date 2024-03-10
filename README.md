@@ -16,9 +16,12 @@ and shit.
 
 ## Stable_Diffusion-Architecture
 ![Stable Diffusion](others/architecturet2i.png)
-Text to Image architecture overview goes brrrrrrrrrrrrrrrrr
+
+<p align="center">Text to Image architecture overview goes brrrrrrrrrrrrrrrrr</p>
+
 ![Stable Diffusion](others/architecturet2i.png)
-Image to Image architecture overview goes brrrrrrrrrrrrrrrrr
+
+<p align="center">Image to Image architecture overview goes brrrrrrrrrrrrrrrrr</p>
 
 ## Installation
 
@@ -28,11 +31,10 @@ Download **Setup_Unstable_Diffusion.exe**,**Setup_Unstable_Diffusion-1.bin**,
 <br>
 ![InstallationFiles](others/setup1.png)
 <br>
-Place those files in the same folder.
+<p align="center">Place those files in the same folder.</p>
 <br>
 <br>
-<br>
-<br>
+
 ![Setup](others/setup2.png)
 <br>
 <br>
@@ -48,6 +50,10 @@ with text prompts.
 <br>
 After generating the image, you can save it by clicking the **Save Image** button. 
 This action will create a folder named **Stable Diffusion** on your desktop and save the image inside that folder.
+<br>
+<br>
+![showpieces.png](others/showpieces.png)
+<p align="center">Here are some example outputs</p>
 ## Contributing
 
 Riz1
