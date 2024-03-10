@@ -27,6 +27,9 @@ Setup_Unstable_Diffusion-2.bin and Setup_Unstable_Diffusion-3.bin from [here](ht
 ![InstallationFiles](others/setup1.png)
 Put those files in the same folder.
 <br>
+<br>
+<br>
+<br>
 ![Setup](others/setup2.png)
 Then double click on Setup_Unstable_Diffusion.exe and install it just like a normal windows app.
 The installation time may vary depending on your machine.
