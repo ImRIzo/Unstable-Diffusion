@@ -28,7 +28,7 @@ Download **Setup_Unstable_Diffusion.exe**,**Setup_Unstable_Diffusion-1.bin**,
 <br>
 ![InstallationFiles](others/setup1.png)
 <br>
-Put those files in the same folder.
+Place those files in the same folder.
 <br>
 <br>
 <br>
