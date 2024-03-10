@@ -46,8 +46,8 @@ Use this application to edit existing image with text prompt or generate image f
 with text prompts.
 <br>
 <br>
-"After generating the image, you can save it by clicking the **Save Image** button. 
-This action will create a folder named **Stable Diffusion** on your desktop and save the image inside that folder."
+After generating the image, you can save it by clicking the **Save Image** button. 
+This action will create a folder named **Stable Diffusion** on your desktop and save the image inside that folder.
 ## Contributing
 
 Riz1
